@@ -8,7 +8,7 @@ import java.util.Map;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int productId;
+    private Integer productId;
 
     private String productName;
 
@@ -17,10 +17,41 @@ public class Product {
     private Type type;
 
     @ElementCollection
-    @CollectionTable(name = " caracteristic", joinColumns = @JoinColumn(name = "productId"))
-    @MapKeyJoinColumn(name = "caracteristicId") // "caracteristicId" should match the name of the column in the Caracteristic table
-    @Column(name = "value")
+    @CollectionTable(name = "product_caracteristic", joinColumns = @JoinColumn(name = "productId"))
+    @MapKeyJoinColumn(name = "caracteristicId")
+    @Column(name = "value", columnDefinition = "JSON")
     private Map<Caracteristic, Object> caracteristics;
 
-    // Constructors, getters, setters, and other methods
+    public Integer getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Integer productId) {
+        this.productId = productId;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public Map<Caracteristic, Object> getCaracteristics() {
+        return caracteristics;
+    }
+
+    public void setCaracteristics(Map<Caracteristic, Object> caracteristics) {
+        this.caracteristics = caracteristics;
+    }
 }
+
