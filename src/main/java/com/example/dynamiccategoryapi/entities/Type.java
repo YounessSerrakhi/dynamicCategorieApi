@@ -16,6 +16,8 @@ public class Type {
 
     @OneToMany(mappedBy = "type", cascade = CascadeType.ALL)
     private List<Caracteristic> caracteristics;
+    @OneToMany(mappedBy = "type", cascade = CascadeType.ALL)
+    private List<Product> products;
 
     public Integer getTypeId() {
         return typeId;
@@ -39,5 +41,13 @@ public class Type {
 
     public void setCaracteristics(List<Caracteristic> caracteristics) {
         this.caracteristics = caracteristics;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 }

@@ -3,19 +3,18 @@ package com.example.dynamiccategoryapi.controllers;
 import com.example.dynamiccategoryapi.dtos.CaracteristicDTO;
 import com.example.dynamiccategoryapi.dtos.TypeRequestDTO;
 import com.example.dynamiccategoryapi.entities.Caracteristic;
+import com.example.dynamiccategoryapi.entities.Product;
 import com.example.dynamiccategoryapi.entities.Type;
 import com.example.dynamiccategoryapi.servicesImpl.TypeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/types")
+@CrossOrigin(origins = "http://localhost:3000")
 public class TypeController {
 
     @Autowired
@@ -38,5 +37,20 @@ public class TypeController {
             type.setCaracteristics(savedCharacteristics);
         }
         return typeService.insertType(type);
+    }
+
+    @GetMapping("/getType/{typeId}")
+    public Type getType(@PathVariable Integer typeId){
+        return typeService.getType(typeId);
+    }
+
+    @GetMapping("/getAllTypes")
+    public List<Type> getAllTypes(){
+        return typeService.getAllTypes();
+    }
+    @GetMapping("/getTypeWithProduct/{typeId}")
+    public List<Product> getTypeWithProduct(@PathVariable Integer typeId){
+         return typeService.getTypeWithProducts(typeId);
+
     }
 }

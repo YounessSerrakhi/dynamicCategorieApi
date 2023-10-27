@@ -1,5 +1,6 @@
 package com.example.dynamiccategoryapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Map;
@@ -13,14 +14,14 @@ public class Product {
     private String productName;
 
     @ManyToOne
-    @JoinColumn(name = "typeId") // "typeId" should match the name of the column in the Type table
+    @JoinColumn(name = "typeId")
     private Type type;
 
     @ElementCollection
     @CollectionTable(name = "product_caracteristic", joinColumns = @JoinColumn(name = "productId"))
     @MapKeyJoinColumn(name = "caracteristicId")
     @Column(name = "value", columnDefinition = "JSON")
-    private Map<Caracteristic, Object> caracteristics;
+    private Map<Integer, Object> caracteristics;
 
     public Integer getProductId() {
         return productId;
@@ -41,16 +42,16 @@ public class Product {
     public Type getType() {
         return type;
     }
-
+    @JsonIgnore
     public void setType(Type type) {
         this.type = type;
     }
 
-    public Map<Caracteristic, Object> getCaracteristics() {
+    public Map<Integer, Object> getCaracteristics() {
         return caracteristics;
     }
 
-    public void setCaracteristics(Map<Caracteristic, Object> caracteristics) {
+    public void setCaracteristics(Map<Integer, Object> caracteristics) {
         this.caracteristics = caracteristics;
     }
 }
