@@ -22,6 +22,18 @@ public class Product {
     @MapKeyJoinColumn(name = "caracteristicId")
     @Column(name = "value", columnDefinition = "JSON")
     private Map<Integer, Object> caracteristics;
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "image", columnDefinition = "BLOB")
+    private byte[] image;
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
 
     public Integer getProductId() {
         return productId;
