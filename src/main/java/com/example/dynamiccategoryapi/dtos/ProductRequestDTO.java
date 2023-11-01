@@ -6,6 +6,7 @@ public class ProductRequestDTO {
         private String productName;
         private Integer typeId;
        private Map<Integer, Object> characteristics;
+       private byte[] image;
 
         public String getProductName() {
             return productName;
@@ -31,4 +32,11 @@ public class ProductRequestDTO {
             this.characteristics = characteristics;
         }
 
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
 }

@@ -10,7 +10,10 @@ import com.example.dynamiccategoryapi.servicesImpl.TypeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,8 +27,10 @@ public class ProductController {
     @Autowired
     TypeServiceImpl typeService;
     //@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @PostMapping("/addProduct")
-    public Product addProduct(@RequestBody ProductRequestDTO productRequestDTO) {
+    @PostMapping(value = "/addProduct", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Product addProduct(@RequestPart("image") MultipartFile image, @RequestPart("product") ProductRequestDTO productRequestDTO) throws IOException {
+       // System.out.println("Received 'image' part: " + Base64.getEncoder().encodeToString(image.getBytes()));
+        System.out.println("Received 'product' part: " + productRequestDTO);
         Product product = new Product();
         product.setProductName(productRequestDTO.getProductName());
         Type type = typeService.getType(productRequestDTO.getTypeId());
@@ -43,7 +48,9 @@ public class ProductController {
                 characteristics.put(characteristicId, value);
             }
             product.setCaracteristics(characteristics);
+
         }
+        product.setImage(image.getBytes());
         return productService.insertProduct(product);
     }
 
